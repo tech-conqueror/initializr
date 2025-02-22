@@ -1,0 +1,481 @@
+openapi: 3.1.0
+info:
+  title: Airbnb API
+  description: This API provides endpoints for managing reservations, hotels, and rooms within the Airbnb system.
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: mannm.engineer@gmail.com
+    url: https://www.techconqueror.com
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: http://localhost:8080/api
+    description: Local development server
+paths:
+  /reservations:
+    post:
+      summary: Create a new reservation
+      operationId: createReservation
+      tags:
+        - Reservation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationPersistRequest'
+      responses:
+        '201':
+          description: Reservation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '400':
+          description: Invalid request
+
+    get:
+      summary: Get list of reservations
+      operationId: getReservations
+      tags:
+        - Reservation
+      responses:
+        '200':
+          description: List of reservations retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservations'
+
+  /reservations/{id}:
+    get:
+      summary: Get reservation details
+      operationId: getReservation
+      tags:
+        - Reservation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reservation details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '404':
+          description: Reservation not found
+
+    put:
+      summary: Replace a reservation
+      operationId: replaceReservation
+      tags:
+        - Reservation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationPersistRequest'
+      responses:
+        '204':
+          description: Reservation replaced successfully
+        '404':
+          description: Reservation not found
+
+    delete:
+      summary: Delete a reservation
+      operationId: deleteReservation
+      tags:
+        - Reservation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Reservation deleted successfully
+        '404':
+          description: Reservation not found
+
+  /hotels:
+    post:
+      summary: Create a new hotel
+      operationId: createHotel
+      tags:
+        - Hotel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotelPersistRequest'
+      responses:
+        '201':
+          description: Hotel created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hotel'
+
+    get:
+      summary: Get list of hotels
+      operationId: getHotels
+      tags:
+        - Hotel
+      responses:
+        '200':
+          description: List of hotels retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hotels'
+
+  /hotels/{id}:
+    get:
+      summary: Get hotel details
+      operationId: getHotel
+      tags:
+        - Hotel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Hotel details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hotel'
+        '404':
+          description: Hotel not found
+
+    put:
+      summary: Replace a hotel
+      operationId: replaceHotel
+      tags:
+        - Hotel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotelPersistRequest'
+      responses:
+        '204':
+          description: Hotel replaced successfully
+        '404':
+          description: Hotel not found
+
+    delete:
+      summary: Delete a hotel
+      operationId: deleteHotel
+      tags:
+        - Hotel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Hotel deleted successfully
+        '404':
+          description: Hotel not found
+
+  /rooms:
+    post:
+      summary: Create a new room
+      operationId: createRoom
+      tags:
+        - Room
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomPersistRequest'
+      responses:
+        '201':
+          description: Room created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+
+    get:
+      summary: Get list of rooms
+      operationId: getRooms
+      tags:
+        - Room
+      responses:
+        '200':
+          description: List of rooms retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rooms'
+
+  /rooms/{id}:
+    get:
+      summary: Get room details
+      operationId: getRoom
+      tags:
+        - Room
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Room details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '404':
+          description: Room not found
+
+    put:
+      summary: Replace a room
+      operationId: replaceRoom
+      tags:
+        - Room
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomPersistRequest'
+      responses:
+        '204':
+          description: Room replaced successfully
+        '404':
+          description: Room not found
+
+    delete:
+      summary: Delete a room
+      operationId: deleteRoom
+      tags:
+        - Room
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Room deleted successfully
+        '404':
+          description: Room not found
+
+components:
+  schemas:
+    ReservationPersistRequest:
+      type: object
+      required:
+        - userId
+        - hotelId
+        - roomId
+        - checkInDate
+        - checkOutDate
+        - guests
+      properties:
+        userId:
+          type: string
+          examples:
+            - '1001'
+        hotelId:
+          type: string
+          examples:
+            - '1001'
+        roomId:
+          type: string
+          examples:
+            - '1001'
+        checkInDate:
+          type: string
+          format: date
+          examples:
+            - '2025-05-01'
+          description: 'Check-in date must be today or a future date.'
+          pattern: '^\\d{4}-\\d{2}-\\d{2}$'
+        checkOutDate:
+          type: string
+          format: date
+          examples:
+            - '2025-05-07'
+          pattern: '^\\d{4}-\\d{2}-\\d{2}$'
+        guests:
+          type: integer
+          minimum: 1
+          examples:
+            - 2
+
+    Reservations:
+      type: array
+      items:
+        $ref: '#/components/schemas/Reservation'
+
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: string
+          examples:
+            - '1001'
+        userId:
+          type: string
+          examples:
+            - '1001'
+        hotelId:
+          type: string
+          examples:
+            - '1001'
+        roomId:
+          type: string
+          examples:
+            - '1001'
+        checkInDate:
+          type: string
+          format: date
+          examples:
+            - '2025-05-01'
+        checkOutDate:
+          type: string
+          format: date
+          examples:
+            - '2025-05-07'
+        guests:
+          type: integer
+          minimum: 1
+          examples:
+            - 2
+        status:
+          type: string
+          examples:
+            - 'confirmed'
+
+    HotelPersistRequest:
+      type: object
+      required:
+        - name
+        - location
+      properties:
+        name:
+          type: string
+          examples:
+            - 'Luxury Inn'
+        location:
+          type: string
+          examples:
+            - 'Paris, France'
+
+    Hotels:
+      type: array
+      items:
+        $ref: '#/components/schemas/Hotel'
+
+    Hotel:
+      type: object
+      properties:
+        id:
+          type: string
+          examples:
+            - '1001'
+        name:
+          type: string
+          examples:
+            - 'Luxury Inn'
+        location:
+          type: string
+          examples:
+            - 'Paris, France'
+
+    RoomPersistRequest:
+      type: object
+      required:
+        - hotelId
+        - type
+        - price
+        - capacity
+      properties:
+        hotelId:
+          type: string
+          examples:
+            - '1001'
+        type:
+          type: string
+          examples:
+            - 'Deluxe Suite'
+        price:
+          type: number
+          format: double
+          examples:
+            - 150.0
+        capacity:
+          type: integer
+          examples:
+            - 2
+
+    Rooms:
+      type: array
+      items:
+        $ref: '#/components/schemas/Room'
+
+    Room:
+      type: object
+      properties:
+        id:
+          type: string
+          examples:
+            - '1001'
+        hotelId:
+          type: string
+          examples:
+            - '1001'
+        type:
+          type: string
+          examples:
+            - 'Deluxe Suite'
+        price:
+          type: number
+          format: double
+          examples:
+            - 150.0
+        capacity:
+          type: integer
+          examples:
+            - 2
